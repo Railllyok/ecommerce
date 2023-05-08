@@ -1,17 +1,19 @@
 package ru.rail.ecommerce.models;
 
+import org.springframework.context.annotation.EnableMBeanExport;
+
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User implements Serializable {
+public class User {
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
+    private int id;
     @Column(name = "username")
     private String username;
     @Column(name = "email")
@@ -21,30 +23,37 @@ public class User implements Serializable {
     @Column(name = "balance")
     private int balance;
 
-    @ManyToMany
-    @JoinTable(
-            name = "Cart",
-            joinColumns = @JoinColumn(name = "username"),
-            inverseJoinColumns = @JoinColumn(name = "goods_name"))
-    private List<Goods> goods;
+    //    @ManyToMany
+    //    @JoinTable(
+    //            name = "Cart",
+    //            joinColumns = @JoinColumn(name = "user_id"),
+    //            inverseJoinColumns = @JoinColumn(name = "goods_id"))
+    //    private List<Goods> goods;
+
+//    @OneToMany(mappedBy = "user")
+//    Set<Purchase> purchases;
+    @OneToMany(mappedBy = "user")
+    private Set<Purchases> purchases;
 
     public User() {
     }
 
-    public User(int userId, String username, String email, String password, List<Goods> goods) {
-        this.userId = userId;
+    public User(String username, String email, String password,
+                int balance, List<Goods> goods, Set<Purchases> purchases) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.goods = goods;
+        this.balance = balance;
+//        this.goods = goods;
+        this.purchases = purchases;
     }
 
     public int getUserId() {
-        return userId;
+        return id;
     }
 
     public void setUserId(int userId) {
-        this.userId = userId;
+        this.id = userId;
     }
 
     public String getUsername() {
@@ -79,12 +88,20 @@ public class User implements Serializable {
         this.balance = balance;
     }
 
-    public List<Goods> getGoods() {
-        return goods;
+//    public List<Goods> getGoods() {
+//        return goods;
+//    }
+//
+//    public void setGoods(List<Goods> goods) {
+//        this.goods = goods;
+//    }
+
+    public Set<Purchases> getPurchases() {
+        return purchases;
     }
 
-    public void setGoods(List<Goods> goods) {
-        this.goods = goods;
+    public void setPurchases(Set<Purchases> purchases) {
+        this.purchases = purchases;
     }
 }
 //- Для того чтобы воспользоваться магазином, пользователь должен быть зарегестрированным и войти в учетную запись;

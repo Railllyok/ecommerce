@@ -3,67 +3,66 @@ package ru.rail.ecommerce.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Goods")
-public class Goods implements Serializable {
+public class Goods  {
 
     @Id
-    @Column(name = "goods_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int goodsId;
+    private int id;
     @Column(name = "goods_name")
     private String goodsName;
     @Column(name = "goods_description")
     private String goodsDescription;
-    @Column(name = "company")
-    @ManyToOne
-    @JoinColumn()
-    private Company company;
+//    @Column(name = "company")
+//    @ManyToOne
+//    @JoinColumn()
+//    private Company company;
     @Column(name = "goods_price")
     private int goodsPrice;
     @Column(name = "goods_quantities_in_stock")
     private int goodsQuantitiesInStock;
-    @Column(name = "discount")
-    private Discount discount;
-    @Column(name = "goods_feedBack")
-    private String goodsFeedBack;
-    @Column(name = "goods_keyWord")
-    private String goodsKeyWord;
-    @Column(name = "goods_characteristic")
-    private GoodsCharacteristic goodsCharacteristic;
-    @Column(name = "goods_rate")
-    private int goodsRate;
-    @ManyToMany(mappedBy = "goods")
-    private List<User> user;
+//    @Column(name = "discount")
+//    private Discount discount;
+//    @Column(name = "goods_feedBack")
+//    private String goodsFeedBack;
+//    @Column(name = "goods_keyWord")
+//    private String goodsKeyWord;
+//    @Column(name = "goods_characteristic")
+//    private GoodsCharacteristic goodsCharacteristic;
+//    @Column(name = "goods_rate")
+//    private int goodsRate;
+//    @ManyToMany(mappedBy = "goods")
+//    private List<User> user;
 
+//    @OneToMany(mappedBy = "goods")
+//    Set<Purchase> purchases;
+
+    @OneToMany(mappedBy = "goods")
+    private Set<Purchases> purchases;
 
     public Goods() {
     }
-    public Goods(String goodsName, String goodsDescription, Company company, int goodsPrice,
-                 int goodsQuantitiesInStock, Discount discount, String goodsFeedBack,
-                 String goodsKeyWord, GoodsCharacteristic goodsCharacteristic, int goodsRate,List<User> user
-                 ) {
+
+    public Goods(String goodsName, String goodsDescription, int goodsPrice,
+                 int goodsQuantitiesInStock, Discount discount, Set<Purchases> purchases) {
         this.goodsName = goodsName;
         this.goodsDescription = goodsDescription;
-        this.company = company;
         this.goodsPrice = goodsPrice;
         this.goodsQuantitiesInStock = goodsQuantitiesInStock;
-        this.discount = discount;
-        this.goodsFeedBack = goodsFeedBack;
-        this.goodsKeyWord = goodsKeyWord;
-        this.goodsCharacteristic = goodsCharacteristic;
-        this.goodsRate = goodsRate;
-        this.user = user;
-
+//        this.discount = discount;
+        this.purchases = purchases;
     }
 
     public int getGoodsId() {
-        return goodsId;
+        return id;
     }
 
     public void setGoodsId(int goodsId) {
-        this.goodsId = goodsId;
+        this.id = id;
     }
 
     public String getGoodsName() {
@@ -82,14 +81,6 @@ public class Goods implements Serializable {
         this.goodsDescription = goodsDescription;
     }
 
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
     public int getGoodsPrice() {
         return goodsPrice;
     }
@@ -106,52 +97,20 @@ public class Goods implements Serializable {
         this.goodsQuantitiesInStock = goodsQuantitiesInStock;
     }
 
-    public Discount getDiscount() {
-        return discount;
+//    public Discount getDiscount() {
+//        return discount;
+//    }
+//
+//    public void setDiscount(Discount discount) {
+//        this.discount = discount;
+//    }
+
+    public Set<Purchases> getPurchases() {
+        return purchases;
     }
 
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
-    }
-
-    public String getGoodsFeedBack() {
-        return goodsFeedBack;
-    }
-
-    public void setGoodsFeedBack(String goodsFeedBack) {
-        this.goodsFeedBack = goodsFeedBack;
-    }
-
-    public String getGoodsKeyWord() {
-        return goodsKeyWord;
-    }
-
-    public void setGoodsKeyWord(String goodsKeyWord) {
-        this.goodsKeyWord = goodsKeyWord;
-    }
-
-    public GoodsCharacteristic getGoodsCharacteristic() {
-        return goodsCharacteristic;
-    }
-
-    public void setGoodsCharacteristic(GoodsCharacteristic goodsCharacteristic) {
-        this.goodsCharacteristic = goodsCharacteristic;
-    }
-
-    public int getGoodsRate() {
-        return goodsRate;
-    }
-
-    public void setGoodsRate(int goodsRate) {
-        this.goodsRate = goodsRate;
-    }
-
-    public List<User> getUser() {
-        return user;
-    }
-
-    public void setUser(List<User> user) {
-        this.user = user;
+    public void setPurchases(Set<Purchases> purchases) {
+        this.purchases = purchases;
     }
 }
 

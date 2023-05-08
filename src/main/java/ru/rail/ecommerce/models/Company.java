@@ -3,8 +3,8 @@ package ru.rail.ecommerce.models;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name = "Company")
+//@Entity
+//@Table(name = "Company")
 public class Company {
     @Id
     @Column(name = "company_id")
